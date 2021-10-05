@@ -12,11 +12,14 @@ RUN lein deps
 COPY conf/main/logback.xml /usr/src/app/
 COPY . /usr/src/app
 
+# copy config file 
+COPY metadata.properties /etc/iplant/de/metadata.properties
+
 RUN lein uberjar && \
     cp target/metadata-standalone.jar .
 
 ENTRYPOINT ["metadata", "-Dlogback.configurationFile=/etc/iplant/de/logging/metadata-logging.xml", "-cp", ".:metadata-standalone.jar:/", "metadata.core"]
-CMD ["--help"]
+# CMD ["--help"]
 
 ARG git_commit=unknown
 ARG version=unknown
@@ -28,3 +31,13 @@ LABEL org.cyverse.descriptive-version="$descriptive_version"
 LABEL org.label-schema.vcs-ref="$git_commit"
 LABEL org.label-schema.vcs-url="https://github.com/cyverse-de/metadata"
 LABEL org.label-schema.version="$descriptive_version"
+
+# build
+# docker build -t mbwali/metadata:latest .
+
+# run
+# docker run -it -p 60007:60007 mbwali/metadata:latest
+
+# config
+# /etc/iplant/de/metadata.properties
+

@@ -78,4 +78,4 @@ test2junit
 GIT_COMMIT
 VERSION
 
-metadata.properties
+# metadata.properties
